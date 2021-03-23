@@ -1,132 +1,134 @@
 <script>
-  import Grid from './Grid.svelte';
-  import {defs} from './data.js';
 
-  function getRandom(arr, n) {
-    var result = new Array(n),
-    len = arr.length,
-    taken = new Array(len);
-    if (n > len){
+import Grid from './Grid.svelte';
+import {defs} from './data.js';
 
-      throw new RangeError("getRandom: taking too much");
-    }
+function getRandom(arr, n) {
+  var result = new Array(n),
+  len = arr.length,
+  taken = new Array(len);
+  if (n > len){
 
-    while (n--) {
-      var x = Math.floor(Math.random() * len);
-      result[n] = arr[x in taken ? taken[x] : x];
-      taken[x] = --len in taken ? taken[len] : len;
-    }
-    return result;
+    throw new RangeError("getRandom: taking too much");
   }
 
-  function range(a, b, step){
+  while (n--) {
+    var x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+}
 
-    if(b === undefined){
+function range(a, b, step){
 
-      b = a;
-      a = 0;
-    }
-    if(step === undefined){
+  if(b === undefined){
 
-      step = 1;
-    }
+    b = a;
+    a = 0;
+  }
+  if(step === undefined){
 
-    let result = [];
-
-    for(let i = a; i < b; i += step){
-
-      result.push(i);
-    }
-
-    return result;
+    step = 1;
   }
 
-  let columns = {};
+  let result = [];
 
-  for(let i = 0; i < 5; ++i){
+  for(let i = a; i < b; i += step){
 
-    let [l, n] = ["BINGO"[i], i * 15 + 1];
-    columns[l] = range(n, n + 15).map((m) => `${l}${m}`);
+    result.push(i);
   }
 
-  let placeholder = [];
+  return result;
+}
 
-  for(let l of "BINGO"){
+let columns = {};
 
-    placeholder.push(getRandom(columns[l], 5));
+for(let i = 0; i < 5; ++i){
+
+  let [l, n] = ["BINGO"[i], i * 15 + 1];
+  columns[l] = range(n, n + 15).map((m) => `${l}${m}`);
+}
+
+let placeholder = [];
+
+for(let l of "BINGO"){
+
+  placeholder.push(getRandom(columns[l], 5));
+}
+
+let numbers = [];
+
+for(let i = 0; i < 5; ++i){
+
+  for(let sublist of placeholder){
+
+    numbers.push(sublist[i]);
   }
+}
 
-  let numbers = [];
+let bingoCode = "";
+let data = "";
 
-  for(let i = 0; i < 5; ++i){
+function f(event){
 
-    for(let sublist of placeholder){
+  console.log(event.detail.text);
+}
 
-      numbers.push(sublist[i]);
-    }
-  }
-
-  let bingoCode = "";
-  let data = "";
-
-  function f(event){
-
-    console.log(event.detail.text);
-  }
-
-  function handleMessage(event) {
-    bingoCode = event.detail.text;
-    data = defs.get(bingoCode);
-  }
+function handleMessage(event) {
+  bingoCode = event.detail.text;
+  data = defs.get(bingoCode);
+}
 
 </script>
 
 <style>
 
-  :global(body) {
+:global(body) {
 
-    background: white;  
-  }
+  background: white;  
+}
 
-  .container{
+.container{
 
-    display: grid;
-    grid-template-columns: 1fr 3fr 2fr;
-    max-height: 100vh;
-  }
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr;
+  max-height: 100vh;
+}
 
-  .display{
+.display{
 
-    display: flex;
-    flex-direction: column;
-    padding: 40% 0 0;
-  }
+  display: flex;
+  flex-direction: column;
+  padding: 40% 0 0;
+}
 
-  .inner{
+.inner{
 
-    height: 20%;
-    width: 90%;
-    margin: 5% 8% 0% 2%;
-  }
+  height: 20%;
+  width: 90%;
+  margin: 5% 8% 0% 2%;
+}
 
-  .grid_limiter{
+.grid_limiter{
 
-    padding: 5% calc(105% - 100vh);
-  }
+  padding: 5% calc(105% - 100vh);
+}
 
-  #bingocode{
+#bingocode{
 
-    color: #00A852;
-    font-size: 2em;
-    text-align: center;
-  }
+  color: #00A852;
+  font-size: 2em;
+  text-align: center;
+}
 
-  #description{
+#description{
 
-    color: #11374D;
-    text-align: left;
-    margin-left: 1em;
-  }
+  color: #11374D;
+  text-align: left;
+  margin-left: 1em;
+}
+
 </style>
 
 <div class="container">
