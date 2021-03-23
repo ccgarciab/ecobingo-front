@@ -1,83 +1,16 @@
 <script>
 
 import Grid from './Grid.svelte';
-import {defs} from './data.js';
-
-function getRandom(arr, n) {
-  var result = new Array(n),
-  len = arr.length,
-  taken = new Array(len);
-  if (n > len){
-
-    throw new RangeError("getRandom: taking too much");
-  }
-
-  while (n--) {
-    var x = Math.floor(Math.random() * len);
-    result[n] = arr[x in taken ? taken[x] : x];
-    taken[x] = --len in taken ? taken[len] : len;
-  }
-  return result;
-}
-
-function range(a, b, step){
-
-  if(b === undefined){
-
-    b = a;
-    a = 0;
-  }
-  if(step === undefined){
-
-    step = 1;
-  }
-
-  let result = [];
-
-  for(let i = a; i < b; i += step){
-
-    result.push(i);
-  }
-
-  return result;
-}
-
-let columns = {};
-
-for(let i = 0; i < 5; ++i){
-
-  let [l, n] = ["BINGO"[i], i * 15 + 1];
-  columns[l] = range(n, n + 15).map((m) => `${l}${m}`);
-}
-
-let placeholder = [];
-
-for(let l of "BINGO"){
-
-  placeholder.push(getRandom(columns[l], 5));
-}
-
-let numbers = [];
-
-for(let i = 0; i < 5; ++i){
-
-  for(let sublist of placeholder){
-
-    numbers.push(sublist[i]);
-  }
-}
+import {defs} from './defs.js';
+import {getRandomCard} from './randomCard.js';
 
 let bingoCode = "";
-let data = "";
-
-function f(event){
-
-  console.log(event.detail.text);
-}
+let definition = "";
+let card = getRandomCard();
 
 function handleMessage(event) {
   bingoCode = event.detail.text;
-  data = defs.get(bingoCode);
+  definition = defs.get(bingoCode);
 }
 
 </script>
@@ -135,12 +68,12 @@ function handleMessage(event) {
   <div></div>
 
   <div class="grid_limiter">
-    <Grid content={numbers} on:overtile={handleMessage}/>
+    <Grid content={card} on:overtile={handleMessage}/>
   </div>
 
   <div class="display">
     <div id="bingocode" class="inner">{bingoCode}</div>
-    <div id="description" class="inner">{data}</div>
+    <div id="description" class="inner">{definition}</div>
   </div>
 </div>
 

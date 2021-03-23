@@ -1,12 +1,11 @@
 <script>
 
 export let content;
-
 import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher();
-
 let state = "enabled";
+
+const dispatch = createEventDispatcher();
 
 function reporttile() {
   dispatch('overtile', {
@@ -22,10 +21,8 @@ function stopreport() {
 
 function disable(e){
 
-  state = "disabled"
+  state = "disabled";
 }
-
-let enabled = true;
 
 </script>
 
