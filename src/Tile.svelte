@@ -76,9 +76,10 @@ function mark(e){
 
   position: absolute;
   top: 0; left: 0;
-  height: 100%;
+  max-height: 100%;
   width: 100%;
-  padding: 30% 0px;
+  padding: 40% 0px;
+  line-height: 40%;
   text-align: center;
   cursor: default;
 }
