@@ -1,7 +1,8 @@
 <script>
-	import Tile from './Tile.svelte';
-	export let content;
-	
+
+import Tile from './Tile.svelte';
+export let content;
+
 </script>
 
 <style>
@@ -14,23 +15,24 @@
 }
 
 .heading {
-	text-align: center;
-	color: #00A852;
-	font-size: 2rem;
-	font-family: helvetica;
+
+  text-align: center;
+  color: #00A852;
+  font-size: 2rem;
+  font-family: helvetica;
 }
 
 </style>
 
 
 <div class="square-container">
-	{#each "BINGO" as c}
-		<div class="heading">
-			{c}
-		</div>
-	{/each}
-	{#each content as i}
-		<Tile content={i} on:overtile/>
-	{/each}
+  {#each "BINGO" as c}
+    <div class="heading">
+      {c}
+    </div>
+  {/each}
+  {#each content as i}
+    <Tile content={i} on:overtile/>
+  {/each}
 </div>
 
