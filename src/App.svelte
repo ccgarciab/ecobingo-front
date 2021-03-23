@@ -7,10 +7,24 @@ import {getRandomCard} from './randomCard.js';
 let bingoCode = "";
 let definition = "";
 let card = getRandomCard();
+let target = new Array(25).fill(false);
+target[12] = true;
 
-function handleMessage(event) {
-  bingoCode = event.detail.text;
+function handleOverTile(event) {
+
+  bingoCode = event.detail.code;
   definition = defs.get(bingoCode);
+}
+
+function mark(event){
+
+  let position = event.detail.position;
+  target[position] = true;
+  
+  if(target.reduce((a, b) => a && b)){
+  
+    window.alert("ganó");
+  }
 }
 
 </script>
@@ -74,7 +88,7 @@ function handleMessage(event) {
   <div></div>
 
   <div class="grid_limiter">
-    <Grid content={card} on:overtile={handleMessage}/>
+    <Grid content={card} on:overtile={handleOverTile} on:marktile={mark}/>
   </div>
 
   <div class="display">

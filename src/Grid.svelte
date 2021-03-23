@@ -34,7 +34,7 @@ export let content;
   {/each}
   {#each content as code, i}
     {#if i != 12}
-      <Tile content={code} on:overtile/>
+      <Tile {code} position={i} on:overtile on:marktile />
     {:else}
       <CenterTile/>
     {/if}

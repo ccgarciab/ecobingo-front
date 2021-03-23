@@ -1,6 +1,8 @@
 <script>
 
-export let content;
+export let code;
+export let position;
+
 import { createEventDispatcher } from 'svelte';
 
 let state = "enabled";
@@ -9,19 +11,22 @@ const dispatch = createEventDispatcher();
 
 function reporttile() {
   dispatch('overtile', {
-    text: content
+    code
   });
 }
 
 function stopreport() {
   dispatch('overtile', {
-    text: ""
+    code: ""
   });
 }
 
-function disable(e){
+function mark(e){
 
   state = "disabled";
+  dispatch('marktile', {
+    position
+  });
 }
 
 </script>
@@ -67,15 +72,12 @@ function disable(e){
   padding-top: 100%;
 }
 
-.square .content {
+.content {
 
   position: absolute;
   top: 0; left: 0;
   height: 100%;
   width: 100%;
-}
-.content {
-
   padding: 30% 0px;
   text-align: center;
   cursor: default;
@@ -84,9 +86,9 @@ function disable(e){
 </style>
 
 
-<div class="square {state}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click={disable}>
+<div class="square {state}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click|once={mark}>
   <div class="content">
-    <div>{content}</div>
+    <div>{code}</div>
   </div>
 </div>
 
