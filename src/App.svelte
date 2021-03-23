@@ -83,8 +83,13 @@
 
 <style>
 
-	.container{
+	:global(body) {
 	
+		background: white;	
+	}
+
+	.container{
+
 		display: grid;
 		grid-template-columns: 1fr 3fr 2fr;
 		max-height: 100vh;
@@ -106,18 +111,19 @@
 	
 	.grid_limiter{
 	
-		padding: 0 calc(105% - 100vh);
+		padding: 5% calc(105% - 100vh);
 	}
 	
 	#bingocode{
 	
-		color: #5f42c7;
+		color: #00A852;
 		font-size: 2em;
 		text-align: center;
 	}
 	
 	#description{
 	
+		color: #11374D;
 		text-align: left;
 		margin-left: 1em;
 	}

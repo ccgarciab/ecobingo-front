@@ -39,24 +39,24 @@
 
 .enabled {
 
-  border: 1px solid #2c2f33;
-  background: #2c2f33;
+  border: 1px solid #0166AF;
+  background: #0166AF;
   color: white;
 	transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
 }
 
 .enabled:hover{
-  border: 1px solid #4287f5;
+  border: 2px solid #1C1EA4;
 	transform:  scale(1.10);
-	background: #4287f5;
+	background: #24A6AB;
 	box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
 .disabled{
 
-  border: 1px solid grey;
-  background: grey;
-  color: black;
+  border: 1px solid #00A852;
+  background: #00A852;
+  color: white;
 }
 
 .square::before {

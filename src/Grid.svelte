@@ -15,7 +15,7 @@
 
 .heading {
 	text-align: center;
-	color: #109c0b;
+	color: #00A852;
 	font-size: 2rem;
 	font-family: helvetica;
 }
