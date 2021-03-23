@@ -1,5 +1,6 @@
 <script>
 
+import CenterTile from './CenterTile.svelte';
 import Tile from './Tile.svelte';
 export let content;
 
@@ -31,8 +32,12 @@ export let content;
       {c}
     </div>
   {/each}
-  {#each content as i}
-    <Tile content={i} on:overtile/>
+  {#each content as code, i}
+    {#if i != 12}
+      <Tile content={code} on:overtile/>
+    {:else}
+      <CenterTile/>
+    {/if}
   {/each}
 </div>
 
