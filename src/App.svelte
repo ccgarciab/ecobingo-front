@@ -64,6 +64,12 @@ function handleMessage(event) {
 
 </style>
 
+<svelte:head>
+	<title>
+	  Bingo Ambiental
+	</title>
+</svelte:head>
+
 <div class="container">
   <div></div>
 
