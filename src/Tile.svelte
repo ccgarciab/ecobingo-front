@@ -52,9 +52,10 @@ function mark(e){
 
 .enabled:hover{
 
-  border: 2px solid #1C1EA4;
+  border: 2px solid #92a5c5;
+  color: #627595;
   transform:  scale(1.10);
-  background: #24A6AB;
+  background: #dae3f3;
   box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 

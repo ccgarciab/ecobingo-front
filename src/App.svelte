@@ -39,7 +39,7 @@ function mark(event){
 .container{
 
   display: grid;
-  grid-template-columns: 1fr 3fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr;
   max-height: 100vh;
 }
 
@@ -47,35 +47,57 @@ function mark(event){
 
   display: flex;
   flex-direction: column;
-  padding: 40% 0 0;
+  padding: 15% 0 0;
 }
 
 .inner{
 
-  height: 20%;
+  display: flex;
+  flex-direction: row;
   width: 90%;
-  margin: 5% 8% 0% 2%;
+  height: 30%;
+  margin: 0% 8% 0% 2%;
+  margin-left: 2em;
+  
+  z-index: 10;
 }
 
 .grid_limiter{
 
-  padding: 5% calc(105% - 100vh);
+  padding: 5% calc(110% - 100vmin);
 }
 
-#bingocode{
+.bingocode{
 
   color: #00A852;
+  position: relative;
   font-size: 2em;
   text-align: center;
+  min-width: 20%;
+  background: transparent;
+  z-index: 10;
 }
 
-#description{
+.description{
 
   color: #11374D;
+  overflow: auto;
   text-align: left;
-  margin-left: 1em;
+  margin-left: 5%;
+  overflow: scroll;
 }
 
+.label{
+
+  width: 90%;
+  height: 1.8em;
+  padding-top: 0.4em;
+  margin: 2em 1em;
+  text-align: center;
+  background: #dae3f3;
+  border-radius: 10px;
+  border: 2px solid #92a5c5;
+}
 </style>
 
 <svelte:head>
@@ -90,10 +112,17 @@ function mark(event){
   <div class="grid_limiter">
     <Grid content={card} on:overtile={handleOverTile} on:marktile={mark}/>
   </div>
-
   <div class="display">
-    <div id="bingocode" class="inner">{bingoCode}</div>
-    <div id="description" class="inner">{definition}</div>
+    <div class="label">Balota en juego</div>
+    <div class="inner">
+      <div class="bingocode"><div class="code">{bingoCode}</div></div>
+      <div class="description">{definition}</div>    
+    </div>
+    <div class="label">Balota seleccionada</div>
+    <div class="inner">
+      <div class="bingocode"><div class="code">{bingoCode}</div></div>
+      <div class="description">{definition}</div>    
+    </div>
   </div>
 </div>
 
