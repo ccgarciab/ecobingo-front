@@ -5,6 +5,7 @@ import {defs} from './defs.js';
 import {getRandomCard} from './randomCard.js';
 
 let bingoCode = "";
+let concept = "";
 let definition = "";
 let card = getRandomCard();
 let target = new Array(25).fill(false);
@@ -13,7 +14,7 @@ target[12] = true;
 function handleOverTile(event) {
 
   bingoCode = event.detail.code;
-  definition = defs.get(bingoCode);
+  [concept, definition] = defs.get(bingoCode);
 }
 
 function mark(event){
@@ -116,12 +117,12 @@ function mark(event){
     <div class="label">Balota en juego</div>
     <div class="inner">
       <div class="bingocode"><div class="code">{bingoCode}</div></div>
-      <div class="description">{definition}</div>    
+      <div class="description"><b>{concept}</b>{definition}</div>    
     </div>
     <div class="label">Balota seleccionada</div>
     <div class="inner">
       <div class="bingocode"><div class="code">{bingoCode}</div></div>
-      <div class="description">{definition}</div>    
+      <div class="description"><b>{concept}</b>{definition}</div>    
     </div>
   </div>
 </div>
