@@ -2,11 +2,14 @@
 
 import Grid from './Grid.svelte';
 import {defs} from './defs.js';
-import {getRandomCard} from './randomCard.js';
+import {getRandomCard, getRandomCode} from './randomCard.js';
 
 let bingoCode = "";
 let concept = "";
 let definition = "";
+let p_bingoCode = "";
+let p_concept = "";
+let p_definition = "";
 let card = getRandomCard();
 let target = new Array(25).fill(false);
 target[12] = true;
@@ -27,6 +30,17 @@ function mark(event){
     window.alert("ganó");
   }
 }
+
+async function updatePlayingCode(){
+
+  while(true){
+
+    p_bingoCode = await getRandomCode();
+    [p_concept, p_definition] = defs.get(p_bingoCode);
+  }
+} 
+
+updatePlayingCode();
 
 </script>
 
@@ -116,8 +130,8 @@ function mark(event){
   <div class="display">
     <div class="label">Balota en juego</div>
     <div class="inner">
-      <div class="bingocode"><div class="code">{bingoCode}</div></div>
-      <div class="description"><b>{concept}</b>{definition}</div>    
+      <div class="bingocode"><div class="code">{p_bingoCode}</div></div>
+      <div class="description"><b>{p_concept}</b>{p_definition}</div>    
     </div>
     <div class="label">Balota seleccionada</div>
     <div class="inner">

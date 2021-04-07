@@ -59,6 +59,16 @@ function getRandomCard(){
   return codes;
 }
 
+function getRandomCode(){
+
+  let [l] = getRandom("BINGO", 1);
+  let code = getRandom(codesByLetter[l], 1)[0];
+  return new Promise((resolve) => {
+  
+    setTimeout(() => resolve(code), 5000);
+  })
+}
+
 let codesByLetter = {};
 
 for(let i = 0; i < 5; ++i){
@@ -67,4 +77,4 @@ for(let i = 0; i < 5; ++i){
   codesByLetter[l] = range(n, n + 15).map((m) => `${l}${m}`);
 }
 
-export {getRandomCard};
+export {getRandomCard, getRandomCode};
