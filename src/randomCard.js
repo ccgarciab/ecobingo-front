@@ -62,7 +62,7 @@ function getRandomCard(){
 function getRandomCode(){
 
   let [l] = getRandom("BINGO", 1);
-  let code = getRandom(codesByLetter[l], 1)[0];
+  let [code] = getRandom(codesByLetter[l], 1);
   return new Promise((resolve) => {
   
     setTimeout(() => resolve(code), 5000);

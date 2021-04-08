@@ -3,6 +3,7 @@
 import Grid from './Grid.svelte';
 import {defs} from './defs.js';
 import {getRandomCard, getRandomCode} from './randomCard.js';
+import {codeStore} from './codeStore.js';
 
 let bingoCode = "";
 let concept = "";
@@ -37,6 +38,7 @@ async function updatePlayingCode(){
 
     p_bingoCode = await getRandomCode();
     [p_concept, p_definition] = defs.get(p_bingoCode);
+    $codeStore = p_bingoCode;
   }
 } 
 

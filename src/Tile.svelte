@@ -4,6 +4,7 @@ export let code;
 export let position;
 
 import { createEventDispatcher } from 'svelte';
+import {codeStore} from './codeStore.js';
 
 let state = "enabled";
 
@@ -23,6 +24,10 @@ function stopreport() {
 
 function mark(e){
 
+  if($codeStore !== code || state === "disabled"){
+
+    return;
+  }
   state = "disabled";
   dispatch('marktile', {
     position
@@ -88,7 +93,7 @@ function mark(e){
 </style>
 
 
-<div class="square {state}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click|once={mark}>
+<div class="square {state}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click={mark}>
   <div class="content">
     <div>{code}</div>
   </div>
