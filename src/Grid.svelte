@@ -15,23 +15,36 @@ export let content;
   grid-gap: 0.5vw;
 }
 
-.heading {
+.bingo_heading{
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column: span 5;
+  background-color: white;
+  color: #00A852;
+  font-family: helvetica;
+  font-size: 2rem;
+  border-radius: 10px;
+  height: 2.05em;
+}
+
+.bingo_letter {
 
   text-align: center;
-  color: #00A852;
-  font-size: 2rem;
-  font-family: helvetica;
+  padding-top: 20%;
 }
 
 </style>
 
 
 <div class="square-container">
-  {#each "BINGO" as c}
-    <div class="heading">
-      {c}
-    </div>
-  {/each}
+  <div class="bingo_heading">
+    {#each "BINGO" as c}
+      <div class="bingo_letter">
+        {c}
+      </div>
+    {/each}
+  </div>
   {#each content as code, i}
     {#if i != 12}
       <Tile {code} position={i} on:overtile on:marktile />
