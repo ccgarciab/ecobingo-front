@@ -6,6 +6,7 @@ import {getRandomCard, getRandomCode} from './randomCard.js';
 import BallotShowcase from './BalotShowcase.svelte';
 import Grid from './Grid.svelte';
 import GoalFigure from "./GoalFigure.svelte";
+import Label from "./Label.svelte";
 import Logos from './Logos.svelte';
 
 let hooverBingoCode = "";
@@ -67,18 +68,6 @@ updatePlayingCode();
   padding: 1em calc(110% - 100vmin);
 }
 
-.label{
-
-  width: 90%;
-  height: 1.8em;
-  padding-top: 0.4em;
-  margin: 0.5em 0.5em 1em 0.5em;
-  text-align: center;
-  background: #dae3f3;
-  border-radius: 10px;
-  border: 2px solid #92a5c5;
-}
-
 .button {
 
   background-color: #f7cd43;
@@ -91,9 +80,9 @@ updatePlayingCode();
 <div class="container">
   <div>
     <Logos/>
-    <div class="label">Sala: <b>ABCD</b></div>
-    <div class="label">Usuario: <b>Pepito</b></div>
-    <div class="label">Figura Ganadora</div>
+    <Label content={"Sala: <b>ABCD</b>"}/>
+    <Label content={"Usuario: <b>Pepito</b>"}/>
+    <Label content={"Figura Ganadora"}/>
     <div style="padding: 0% 30%;">
       <GoalFigure figure={target}/>
     </div>

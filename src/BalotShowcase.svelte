@@ -2,6 +2,8 @@
 
 import {defs} from './defs.js';
 
+import Label from "./Label.svelte";
+
 export let label;
 export let bingoCode = "";
 
@@ -10,18 +12,6 @@ $: [concept, definition] = defs.get(bingoCode);
 </script>
 
 <style>
-
-.label{
-
-  width: 90%;
-  height: 1.8em;
-  padding-top: 0.4em;
-  margin: 0.5em 0.5em 1em 0.5em;
-  text-align: center;
-  background: #dae3f3;
-  border-radius: 10px;
-  border: 2px solid #92a5c5;
-}
 
 .lower_row{
 
@@ -57,7 +47,7 @@ $: [concept, definition] = defs.get(bingoCode);
 
 </style>
 
-<div class="label">{label}</div>
+<Label content={label}/>
 <div class="lower_row">
   <div class="bingocode">{bingoCode}</div>
   <div class="description"><b>{concept}</b>{definition}</div>     
