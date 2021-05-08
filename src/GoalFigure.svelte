@@ -1,7 +1,10 @@
 <script>
-    export let figure;
-    import StaticTile from "./StaticTile.svelte";
-    import CenterTile from "./CenterTile.svelte";
+
+import CenterTile from "./CenterTile.svelte";
+import StaticTile from "./StaticTile.svelte";
+
+export let figure;
+
 </script>
 
 <style>

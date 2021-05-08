@@ -1,8 +1,9 @@
 <script>
 
+import {defs} from './defs.js';
+
 export let label;
 export let bingoCode = "";
-import {defs} from './defs.js';
 
 $: [concept, definition] = defs.get(bingoCode);
 

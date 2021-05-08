@@ -1,11 +1,12 @@
 <script>
 
-import Logos from './Logos.svelte';
-import Grid from './Grid.svelte';
-import BallotShowcase from './BalotShowcase.svelte';
-import GoalFigure from "./GoalFigure.svelte";
-import {getRandomCard, getRandomCode} from './randomCard.js';
 import {codeStore} from './codeStore.js';
+import {getRandomCard, getRandomCode} from './randomCard.js';
+
+import BallotShowcase from './BalotShowcase.svelte';
+import Grid from './Grid.svelte';
+import GoalFigure from "./GoalFigure.svelte";
+import Logos from './Logos.svelte';
 
 let hooverBingoCode = "";
 let currentBingoCode = "";
@@ -14,8 +15,6 @@ let card = getRandomCard();
 let filled = new Array(25).fill(false);
 filled[12] = true;
 let target = new Array(25).fill(null).map((_) => Math.random() < 0.5);
-console.log(target);
-
 
 function handleOverTile(event) {
 

@@ -2,6 +2,7 @@
 
 import CenterTile from './CenterTile.svelte';
 import Tile from './Tile.svelte';
+
 export let content;
 
 </script>

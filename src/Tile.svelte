@@ -1,10 +1,11 @@
 <script>
 
-export let code;
-export let position;
-
-import { createEventDispatcher } from 'svelte';
 import {codeStore} from './codeStore.js';
+
+import { createEventDispatcher } from 'svelte'
+
+export let code;
+export let position;;
 
 let state = "enabled";
 
@@ -91,7 +92,6 @@ function mark(e){
 }
 
 </style>
-
 
 <div class="square {state}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click={mark}>
   <div class="content">

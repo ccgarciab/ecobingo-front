@@ -1,4 +1,3 @@
-
 <style>
 
 .logo {
@@ -18,9 +17,9 @@
 </style>
 
 <div class="logos">
-    <div style="aspect-ratio: 404 / 246; max-width: 50%; padding-top: 2em;">
+  <div style="aspect-ratio: 404 / 246; max-width: 50%; padding-top: 2em;">
     <img class="logo" src="images/logo_corpochivor.png" alt="Logo Corpochivor" />
-    </div>
-    <img class="logo" src="images/logo_unal.svg" alt="Logo Universidad Nacional" />
+  </div>
+  <img class="logo" src="images/logo_unal.svg" alt="Logo Universidad Nacional" />
 </div>
 

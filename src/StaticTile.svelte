@@ -1,5 +1,7 @@
 <script>
-    export let marked;
+
+export let marked;
+
 </script>
 
 <style>
