@@ -1,32 +1,37 @@
 <script>
+  import Logos from './Logos.svelte';
+
 
 import Grid from './Grid.svelte';
+import GoalFigure from "./GoalFigure.svelte";
 import {defs} from './defs.js';
 import {getRandomCard, getRandomCode} from './randomCard.js';
 import {codeStore} from './codeStore.js';
 
-let bingoCode = "";
-let concept = "";
-let definition = "";
-let p_bingoCode = "";
-let p_concept = "";
-let p_definition = "";
+let hooverBingoCode = "";
+$: [hooverConcept, hooverDefinition] = defs.get(hooverBingoCode);
+let currentBingoCode = "";
+$: [currentConcept, currentDefinition] = defs.get(currentBingoCode);
+[currentConcept, currentDefinition] = defs.get(currentBingoCode);
+
 let card = getRandomCard();
-let target = new Array(25).fill(false);
-target[12] = true;
+let filled = new Array(25).fill(false);
+filled[12] = true;
+let target = new Array(25).fill(null).map((_) => Math.random() < 0.5);
+console.log(target);
+
 
 function handleOverTile(event) {
 
-  bingoCode = event.detail.code;
-  [concept, definition] = defs.get(bingoCode);
+  hooverBingoCode = event.detail.code;
 }
 
 function mark(event){
 
   let position = event.detail.position;
-  target[position] = true;
+  filled[position] = true;
   
-  if(target.reduce((a, b) => a && b)){
+  if(filled.reduce((a, b) => a && b)){
   
     window.alert("ganó");
   }
@@ -36,9 +41,8 @@ async function updatePlayingCode(){
 
   while(true){
 
-    p_bingoCode = await getRandomCode();
-    [p_concept, p_definition] = defs.get(p_bingoCode);
-    $codeStore = p_bingoCode;
+    currentBingoCode = await getRandomCode();
+    $codeStore = currentBingoCode;
   }
 } 
 
@@ -64,7 +68,8 @@ updatePlayingCode();
 
   display: flex;
   flex-direction: column;
-  padding: 15% 0 0;
+  padding-top: 15%;
+  padding-left: 3%;
 }
 
 .inner{
@@ -81,7 +86,7 @@ updatePlayingCode();
 
 .grid_limiter{
 
-  padding: 5% calc(110% - 100vmin);
+  padding: 1em calc(110% - 100vmin);
 }
 
 .bingocode{
@@ -109,11 +114,19 @@ updatePlayingCode();
   width: 90%;
   height: 1.8em;
   padding-top: 0.4em;
-  margin: 2em 1em;
+  margin: 0.5em 0.5em 1em 0.5em;
   text-align: center;
   background: #dae3f3;
   border-radius: 10px;
   border: 2px solid #92a5c5;
+}
+
+.button {
+
+  background-color: #f7cd43;
+  max-width: 50%;
+  border-radius: 10px;
+  margin-left: 6em;
 }
 </style>
 
@@ -124,22 +137,32 @@ updatePlayingCode();
 </svelte:head>
 
 <div class="container">
-  <div></div>
+  <div>
+    <Logos/>
+    <div class="label">Sala: <b>ABCD</b></div>
+    <div class="label">Usuario: <b>Pepito</b></div>
+    <div class="label">Figura Ganadora</div>
+    <div style="padding: 0% 30%;">
+      <GoalFigure figure={target}/>
+    </div>
+  </div>
 
   <div class="grid_limiter">
     <Grid content={card} on:overtile={handleOverTile} on:marktile={mark}/>
   </div>
+
   <div class="display">
     <div class="label">Balota en juego</div>
     <div class="inner">
-      <div class="bingocode"><div class="code">{p_bingoCode}</div></div>
-      <div class="description"><b>{p_concept}</b>{p_definition}</div>    
+      <div class="bingocode"><div class="code">{currentBingoCode}</div></div>
+      <div class="description"><b>{currentConcept}</b>{currentDefinition}</div>    
     </div>
     <div class="label">Balota seleccionada</div>
     <div class="inner">
-      <div class="bingocode"><div class="code">{bingoCode}</div></div>
-      <div class="description"><b>{concept}</b>{definition}</div>    
+      <div class="bingocode"><div class="code">{hooverBingoCode}</div></div>
+      <div class="description"><b>{hooverConcept}</b>{hooverDefinition}</div>     
     </div>
+    <button class="button" type="button">BINGO!</button>
   </div>
 </div>
 
