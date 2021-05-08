@@ -48,11 +48,6 @@ updatePlayingCode();
 
 <style>
 
-:global(body) {
-
-  background: white;  
-}
-
 .container{
 
   display: grid;
@@ -94,12 +89,6 @@ updatePlayingCode();
 }
 </style>
 
-<svelte:head>
-	<title>
-	  Bingo Ambiental
-	</title>
-</svelte:head>
-
 <div class="container">
   <div>
     <Logos/>
@@ -121,4 +110,3 @@ updatePlayingCode();
     <button class="button" type="button">BINGO!</button>
   </div>
 </div>
-
