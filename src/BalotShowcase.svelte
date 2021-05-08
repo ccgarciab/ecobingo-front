@@ -42,7 +42,7 @@ $: [concept, definition] = defs.get(bingoCode);
   overflow: auto;
   text-align: left;
   margin-left: 5%;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 </style>
