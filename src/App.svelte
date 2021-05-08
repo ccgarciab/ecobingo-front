@@ -1,18 +1,14 @@
 <script>
-  import Logos from './Logos.svelte';
 
-
+import Logos from './Logos.svelte';
 import Grid from './Grid.svelte';
+import BallotShowcase from './BalotShowcase.svelte';
 import GoalFigure from "./GoalFigure.svelte";
-import {defs} from './defs.js';
 import {getRandomCard, getRandomCode} from './randomCard.js';
 import {codeStore} from './codeStore.js';
 
 let hooverBingoCode = "";
-$: [hooverConcept, hooverDefinition] = defs.get(hooverBingoCode);
 let currentBingoCode = "";
-$: [currentConcept, currentDefinition] = defs.get(currentBingoCode);
-[currentConcept, currentDefinition] = defs.get(currentBingoCode);
 
 let card = getRandomCard();
 let filled = new Array(25).fill(false);
@@ -72,41 +68,9 @@ updatePlayingCode();
   padding-left: 3%;
 }
 
-.inner{
-
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  height: 30%;
-  margin: 0% 8% 0% 2%;
-  margin-left: 2em;
-  
-  z-index: 10;
-}
-
 .grid_limiter{
 
   padding: 1em calc(110% - 100vmin);
-}
-
-.bingocode{
-
-  color: #00A852;
-  position: relative;
-  font-size: 2em;
-  text-align: center;
-  min-width: 20%;
-  background: transparent;
-  z-index: 10;
-}
-
-.description{
-
-  color: #11374D;
-  overflow: auto;
-  text-align: left;
-  margin-left: 5%;
-  overflow: scroll;
 }
 
 .label{
@@ -152,16 +116,8 @@ updatePlayingCode();
   </div>
 
   <div class="display">
-    <div class="label">Balota en juego</div>
-    <div class="inner">
-      <div class="bingocode"><div class="code">{currentBingoCode}</div></div>
-      <div class="description"><b>{currentConcept}</b>{currentDefinition}</div>    
-    </div>
-    <div class="label">Balota seleccionada</div>
-    <div class="inner">
-      <div class="bingocode"><div class="code">{hooverBingoCode}</div></div>
-      <div class="description"><b>{hooverConcept}</b>{hooverDefinition}</div>     
-    </div>
+    <BallotShowcase label="Balota en juego" bingoCode={currentBingoCode}/>
+    <BallotShowcase label="Balota seleccionada" bingoCode={hooverBingoCode}/>
     <button class="button" type="button">BINGO!</button>
   </div>
 </div>
