@@ -13,9 +13,10 @@ let hooverBingoCode = "";
 let currentBingoCode = "";
 
 let card = getRandomCard();
-let filled = new Array(25).fill(false);
-filled[12] = true;
-let target = new Array(25).fill(null).map((_) => Math.random() < 0.5);
+let marked = new Array(25).fill(false);
+let target = new Array(25).fill(false);
+target[0] = true;
+target[12] = false;
 
 function handleOverTile(event) {
 
@@ -25,12 +26,7 @@ function handleOverTile(event) {
 function mark(event){
 
   let position = event.detail.position;
-  filled[position] = true;
-  
-  if(filled.reduce((a, b) => a && b)){
-  
-    window.alert("ganó");
-  }
+  marked[position] = true;
 }
 
 async function updatePlayingCode(){
@@ -40,7 +36,21 @@ async function updatePlayingCode(){
     currentBingoCode = await getRandomCode();
     $codeStore = currentBingoCode;
   }
-} 
+}
+
+function declareVictory(){
+
+  let won = target.every((a, i) => a == marked[i] || !a);
+
+  if (won) {
+
+    alert("Felicitaciones!");
+  }
+  else {
+
+    console.log("Sin trampas!");
+  }
+}
 
 updatePlayingCode();
 
@@ -70,7 +80,10 @@ updatePlayingCode();
 
 .button {
 
-  background-color: #f7cd43;
+  background-color: #FCCE17;
+  color: #AC4401;
+  border-color: #FCB403;
+  font-weight: 500;
   max-width: 50%;
   border-radius: 10px;
   margin-left: 6em;
@@ -95,6 +108,6 @@ updatePlayingCode();
   <div class="display">
     <BallotShowcase label="Balota en juego" bingoCode={currentBingoCode}/>
     <BallotShowcase label="Balota seleccionada" bingoCode={hooverBingoCode}/>
-    <button class="button" type="button">BINGO!</button>
+    <button class="button" type="button" on:click={declareVictory}>BINGO!</button>
   </div>
 </div>

@@ -55,6 +55,8 @@ function getRandomCard(){
       codes.push(sublist[i]);
     }
   }
+
+  topLeft = codes[0];
   
   return codes;
 }
@@ -62,7 +64,8 @@ function getRandomCard(){
 function getRandomCode(){
 
   let [l] = getRandom("BINGO", 1);
-  let [code] = getRandom(codesByLetter[l], 1);
+  let [code] = last == topLeft ? getRandom(codesByLetter[l], 1) : [topLeft];
+  last = code;
   return new Promise((resolve) => {
   
     setTimeout(() => resolve(code), 5000);
@@ -76,5 +79,8 @@ for(let i = 0; i < 5; ++i){
   let [l, n] = ["BINGO"[i], i * 15 + 1];
   codesByLetter[l] = range(n, n + 15).map((m) => `${l}${m}`);
 }
+
+let topLeft = "B1"
+let last = "B2"
 
 export {getRandomCard, getRandomCode};
