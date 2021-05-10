@@ -8,6 +8,7 @@ export let code;
 export let position;;
 
 let state = "enabled";
+let sound = new Audio(`audio/${code}.mp3`);
 
 const dispatch = createEventDispatcher();
 
@@ -24,15 +25,15 @@ function stopreport() {
 }
 
 function mark(e){
-
   if($codeStore !== code || state === "disabled"){
-
     return;
   }
   state = "disabled";
   dispatch('marktile', {
     position
   });
+  sound.play();
+  sound = null;
 }
 
 </script>

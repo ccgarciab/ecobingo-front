@@ -68,7 +68,7 @@ function getRandomCode(){
   last = code;
   return new Promise((resolve) => {
   
-    setTimeout(() => resolve(code), 5000);
+    setTimeout(() => resolve(code), 15000);
   })
 }
 
