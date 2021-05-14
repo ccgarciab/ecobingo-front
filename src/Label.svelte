@@ -11,7 +11,7 @@ export let content;
   width: 90%;
   height: 1.8em;
   padding-top: 0.4em;
-  margin: 0.5em 0.5em 1em 0.5em;
+  margin: 0.1em 0.5em 0.1em 0.5em;
   text-align: center;
   background: #dae3f3;
   border-radius: 10px;

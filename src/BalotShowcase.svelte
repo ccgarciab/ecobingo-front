@@ -48,6 +48,7 @@ $: [concept, definition] = defs.get(bingoCode);
 </style>
 
 <Label content={label}/>
+<div style="height: min(1.2vh, 1.1vw);"></div>
 <div class="lower_row">
   <div class="bingocode">{bingoCode}</div>
   <div class="description"><b>{concept}</b>{definition}</div>     

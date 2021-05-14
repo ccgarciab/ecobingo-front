@@ -24,15 +24,14 @@ export let content;
   background-color: white;
   color: #00A852;
   font-family: helvetica;
-  font-size: 2rem;
   border-radius: 10px;
-  height: 2.05em;
+  height: 2em;
 }
 
 .bingo_letter {
 
   text-align: center;
-  padding-top: 20%;
+  font-size: 200%;
 }
 
 </style>
@@ -48,7 +47,7 @@ export let content;
   </div>
   {#each content as code, i}
     {#if i != 12}
-      <Tile {code} position={i} on:overtile on:marktile />
+      <Tile {code} position={i} on:overtile/>
     {:else}
       <CenterTile/>
     {/if}

@@ -1,13 +1,13 @@
 <script>
 
 import {codeStore} from './codeStore.js';
+import {markedStore} from './markedStore.js';
 
 import { createEventDispatcher } from 'svelte'
 
 export let code;
-export let position;;
+export let position;
 
-let state = "enabled";
 let sound = new Audio(`audio/${code}.mp3`);
 
 const dispatch = createEventDispatcher();
@@ -25,15 +25,11 @@ function stopreport() {
 }
 
 function mark(e){
-  if($codeStore !== code || state === "disabled"){
+  if($codeStore !== code || $markedStore[position]){
     return;
   }
-  state = "disabled";
-  dispatch('marktile', {
-    position
-  });
+  $markedStore[position] = true;
   sound.play();
-  sound = null;
 }
 
 </script>
@@ -94,7 +90,7 @@ function mark(e){
 
 </style>
 
-<div class="square {state}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click={mark}>
+<div class="square {$markedStore[position] ? "disabled" : "enabled"}" on:mouseover={reporttile}  on:mouseleave={stopreport} on:click={mark}>
   <div class="content">
     <div>{code}</div>
   </div>

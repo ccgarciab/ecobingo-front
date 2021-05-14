@@ -11,7 +11,7 @@ export let marked;
   position: relative;
   box-sizing: border-box;
   text-align: center;
-  border-radius: 7px;
+  border-radius: min(1.2vh, 1.1vw);
 }
 
 .square::before {
