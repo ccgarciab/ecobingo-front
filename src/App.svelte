@@ -5,6 +5,7 @@ import {markedStore} from './markedStore.js';
 import {getRandomCard, getRandomCode} from './randomCard.js';
 
 import BallotShowcase from './BalotShowcase.svelte';
+import BingoButton from "./BingoButton.svelte";
 import Grid from './Grid.svelte';
 import GoalFigure from "./GoalFigure.svelte";
 import Label from "./Label.svelte";
@@ -53,22 +54,6 @@ updatePlayingCode();
 
 </script>
 
-<style>
-
-.button {
-
-  background-color: #FCCE17;
-  color: #AC4401;
-  border-color: #FCB403;
-  font-weight: 500;
-  min-width: 30%;
-  max-width: 50%;
-  border-radius: 10px;
-
-}
-
-</style>
-
 <svelte:window bind:innerWidth={wWidth}/>
 
 <LayoutAdapter {wWidth}>
@@ -80,5 +65,5 @@ updatePlayingCode();
   <Grid content={card} on:overtile={handleOverTile} slot="grid"/>
   <BallotShowcase label="Balota en juego" bingoCode={currentBingoCode} slot="balot_current"/>
   <BallotShowcase label="Balota seleccionada" bingoCode={hooverBingoCode} slot="balot_hoover"/>
-  <button class="button" type="button" on:click={declareVictory} slot="bingo_button">BINGO!</button>
+  <BingoButton on:click={declareVictory} slot="bingo_button"/>
 </LayoutAdapter>
