@@ -1,14 +1,37 @@
 <script>
 
 import {getRandomCard} from './randomCard.js';
+import {loadAllAudioFiles} from './loadAudioFiles.ts';
+import {soundStore} from './soundStore.js';
 
+import LoadScreen from "./LoadScreen.svelte";
 import PlayingScreen from "./PlayingScreen.svelte";
+import StartScreen from "./StartScreen.svelte";
 
-let card = getRandomCard();
-let target = new Array(25).fill(false);
-target[0] = true;
+let screen = 0;
+let card = null;
+let target = null;
+
+function startLoading(){
+
+  screen = 1;
+  loadAssets().then(() => screen = 2).catch((err) => {console.log(err); screen = 0;})
+}
+
+async function loadAssets(){
+
+  card = getRandomCard();
+  target = new Array(25).fill(false);
+  target[0] = true;
+  $soundStore = await loadAllAudioFiles(card);
+}
 
 </script>
 
-
-<PlayingScreen {card} {target}/>
+{#if screen == 0}
+  <StartScreen on:click={startLoading}/>
+{:else if screen == 1}
+  <LoadScreen/>
+{:else}
+  <PlayingScreen {card} {target}/>
+{/if}

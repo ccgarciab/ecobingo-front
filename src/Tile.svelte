@@ -2,13 +2,14 @@
 
 import {codeStore} from './codeStore.js';
 import {markedStore} from './markedStore.js';
+import {soundStore} from './soundStore.js';
 
 import { createEventDispatcher } from 'svelte'
 
 export let code;
 export let position;
 
-let sound = new Audio(`audio/${code}.mp3`);
+let sound = $soundStore.get(code);
 
 const dispatch = createEventDispatcher();
 
@@ -29,7 +30,7 @@ function mark(e){
     return;
   }
   $markedStore[position] = true;
-  sound.play();
+  sound.start();
 }
 
 </script>
@@ -95,5 +96,3 @@ function mark(e){
     <div>{code}</div>
   </div>
 </div>
-
-
