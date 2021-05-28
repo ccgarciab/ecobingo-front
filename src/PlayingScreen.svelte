@@ -14,6 +14,8 @@ import Logos from './Logos.svelte';
 
 export let card;
 export let target;
+export let user;
+export let room;
 
 let hooverBingoCode = "";
 let currentBingoCode = "";
@@ -58,8 +60,8 @@ updatePlayingCode();
 
 <LayoutAdapter {wWidth}>
   <Logos slot="logos"/>
-  <Label content={"Sala: <b>ABCD</b>"} slot="room_label"/>
-  <Label content={"Usuario: <b>Pepito</b>"} slot="user_label"/>
+  <Label content={`Sala: <b>${room}</b>`} slot="room_label"/>
+  <Label content={`Usuario: <b>${user}</b>`} slot="user_label"/>
   <Label content={"Figura Ganadora"} slot="figure_label"/>
   <GoalFigure figure={target} slot="figure"/>
   <Grid content={card} on:overtile={handleOverTile} slot="grid"/>

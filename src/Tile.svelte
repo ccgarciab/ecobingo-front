@@ -44,6 +44,7 @@ function mark(e){
   text-align: center;
   border-radius: 10px;
   box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  font-size: min(4vw, 3vh);
 }
 
 .enabled {
