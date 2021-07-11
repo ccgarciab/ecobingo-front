@@ -1,7 +1,9 @@
 <script>
+import adapter from 'webrtc-adapter';
 
 import {getRandomCard} from './randomCard.js';
 import {loadAllAudioFiles} from './loadAudioFiles.ts';
+import {getDatachannel} from './initDataChannel.js';
 import {soundStore} from './soundStore.js';
 
 import { fade } from 'svelte/transition';
@@ -13,16 +15,21 @@ import StartScreen from "./StartScreen.svelte";
 let screen = 0;
 let card;
 let target;
+let dataChannel;
 let sessionData;
 
-function startLoading(event){
 
+function startLoading(event){
+  
   screen = 1;
-  loadAssets(event.detail).then(() => screen = 2).catch((err) => {console.log(err); screen = 0;})
+  loadAssets(event.detail)
+    .then(() => screen = 2)
+    .catch((err) => {console.log(err); screen = 0;})
 }
 
 async function loadAssets(textFields){
 
+  dataChannel = await getDatachannel(textFields);
   card = getRandomCard();
   target = new Array(25).fill(false);
   target[0] = true;
@@ -38,6 +45,6 @@ async function loadAssets(textFields){
   <LoadScreen/>
 {:else}
   <div transition:fade>
-    <PlayingScreen {card} {target} {...sessionData} />
+    <PlayingScreen {card} {target} {dataChannel} {...sessionData} />
   </div>
 {/if}

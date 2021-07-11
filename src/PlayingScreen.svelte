@@ -14,6 +14,7 @@ import Logos from './Logos.svelte';
 
 export let card;
 export let target;
+export let dataChannel;
 export let user;
 export let room;
 
