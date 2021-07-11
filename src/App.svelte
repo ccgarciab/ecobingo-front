@@ -4,6 +4,8 @@ import {getRandomCard} from './randomCard.js';
 import {loadAllAudioFiles} from './loadAudioFiles.ts';
 import {soundStore} from './soundStore.js';
 
+import { fade } from 'svelte/transition';
+
 import LoadScreen from "./LoadScreen.svelte";
 import PlayingScreen from "./PlayingScreen.svelte";
 import StartScreen from "./StartScreen.svelte";
@@ -35,5 +37,7 @@ async function loadAssets(textFields){
 {:else if screen == 1}
   <LoadScreen/>
 {:else}
-  <PlayingScreen {card} {target} {...sessionData}/>
+  <div transition:fade>
+    <PlayingScreen {card} {target} {...sessionData} />
+  </div>
 {/if}
