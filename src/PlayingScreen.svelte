@@ -2,7 +2,6 @@
 
 import {codeStore} from './codeStore.js';
 import {markedStore} from './markedStore.js';
-import {getRandomCode} from './randomCard.js';
 
 import BallotShowcase from './BalotShowcase.svelte';
 import BingoButton from "./BingoButton.svelte";
@@ -30,30 +29,25 @@ function handleOverTile(event) {
   hooverBingoCode = event.detail.code;
 }
 
-async function updatePlayingCode(){
+dataChannel.onmessage = (event) => {
 
-  while(true){
-
-    currentBingoCode = await getRandomCode();
+  const message = event.data;
+  if(message === "won"){
+    alert("Ganaste!");
+  }
+  else if(message === "lost"){
+    alert("No has ganado!");
+  }
+  else{
+    currentBingoCode = event.data;
     $codeStore = currentBingoCode;
   }
 }
 
 function declareVictory(){
 
-  let won = target.every((required, i) => marked[i] || !required);
-
-  if (won) {
-
-    alert("Felicitaciones!");
-  }
-  else {
-
-    console.log("Sin trampas!");
-  }
+  dataChannel.send("won");
 }
-
-updatePlayingCode();
 
 </script>
 

@@ -1,7 +1,6 @@
 <script>
 import adapter from 'webrtc-adapter';
 
-import {getRandomCard} from './randomCard.js';
 import {loadAllAudioFiles} from './loadAudioFiles.ts';
 import {getDatachannel} from './initDataChannel.js';
 import {soundStore} from './soundStore.js';
@@ -30,9 +29,19 @@ function startLoading(event){
 async function loadAssets(textFields){
 
   dataChannel = await getDatachannel(textFields);
-  card = getRandomCard();
-  target = new Array(25).fill(false);
-  target[0] = true;
+  const gotGameData = new Promise((resolve) => {
+
+    dataChannel.onmessage = (event) => {
+
+      ({card, target} = JSON.parse(event.data));
+      resolve();
+    }
+  })
+  const timedOut = new Promise((_, reject) => {
+
+    setTimeout(() => {reject("Tiempo agotado esperando al admin")}, 2 * 60 * 1000);
+  })
+  await Promise.race([gotGameData, timedOut]);
   sessionData = textFields;
   $soundStore = await loadAllAudioFiles(card);
 }
