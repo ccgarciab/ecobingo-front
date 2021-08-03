@@ -13,9 +13,9 @@ import Logos from './Logos.svelte';
 
 export let card;
 export let target;
-export let dataChannel;
-export let user;
+export let name;
 export let room;
+export let roomDocument;
 
 let hooverBingoCode = "";
 let currentBingoCode = "";
@@ -29,7 +29,15 @@ function handleOverTile(event) {
   hooverBingoCode = event.detail.code;
 }
 
-dataChannel.onmessage = (event) => {
+roomDocument.onSnapshot((snapshot) => {
+  const data = snapshot.data();
+  if(data?.ballot) {
+    currentBingoCode = data.ballot;
+    $codeStore = currentBingoCode;
+  }
+});
+
+/* dataChannel.onmessage = (event) => {
 
   const message = event.data;
   if(message === "won"){
@@ -42,11 +50,11 @@ dataChannel.onmessage = (event) => {
     currentBingoCode = event.data;
     $codeStore = currentBingoCode;
   }
-}
+} */
 
 function declareVictory(){
 
-  dataChannel.send("won");
+  //dataChannel.send("won");
 }
 
 </script>
@@ -56,7 +64,7 @@ function declareVictory(){
 <LayoutAdapter {wWidth}>
   <Logos slot="logos"/>
   <Label content={`Sala: <b>${room}</b>`} slot="room_label"/>
-  <Label content={`Usuario: <b>${user}</b>`} slot="user_label"/>
+  <Label content={`Usuario: <b>${name}</b>`} slot="user_label"/>
   <Label content={"Figura Ganadora"} slot="figure_label"/>
   <GoalFigure figure={target} slot="figure"/>
   <Grid content={card} on:overtile={handleOverTile} slot="grid"/>

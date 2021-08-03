@@ -1,8 +1,7 @@
 <script>
-import adapter from 'webrtc-adapter';
 
 import {loadAllAudioFiles} from './loadAudioFiles.ts';
-import {getDatachannel} from './initDataChannel.js';
+import {connect} from './connect.js';
 import {soundStore} from './soundStore.js';
 
 import { fade } from 'svelte/transition';
@@ -14,9 +13,8 @@ import StartScreen from "./StartScreen.svelte";
 let screen = 0;
 let card;
 let target;
-let dataChannel;
 let sessionData;
-
+let roomDocument;
 
 function startLoading(event){
   
@@ -28,20 +26,7 @@ function startLoading(event){
 
 async function loadAssets(textFields){
 
-  dataChannel = await getDatachannel(textFields);
-  const gotGameData = new Promise((resolve) => {
-
-    dataChannel.onmessage = (event) => {
-
-      ({card, target} = JSON.parse(event.data));
-      resolve();
-    }
-  })
-  const timedOut = new Promise((_, reject) => {
-
-    setTimeout(() => {reject("Tiempo agotado esperando al admin")}, 2 * 60 * 1000);
-  })
-  await Promise.race([gotGameData, timedOut]);
+  [card, target, roomDocument] = await connect(textFields);
   sessionData = textFields;
   $soundStore = await loadAllAudioFiles(card);
 }
@@ -54,6 +39,6 @@ async function loadAssets(textFields){
   <LoadScreen/>
 {:else}
   <div transition:fade>
-    <PlayingScreen {card} {target} {dataChannel} {...sessionData} />
+    <PlayingScreen {card} {target} {roomDocument} {...sessionData} />
   </div>
 {/if}
