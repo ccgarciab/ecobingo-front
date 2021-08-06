@@ -3,6 +3,8 @@
 import {codeStore} from './codeStore.js';
 import {markedStore} from './markedStore.js';
 
+import ConfettiGenerator from "confetti-js";
+
 import BallotShowcase from './BalotShowcase.svelte';
 import BingoButton from "./BingoButton.svelte";
 import Grid from './Grid.svelte';
@@ -21,6 +23,8 @@ let hooverBingoCode = "";
 let currentBingoCode = "";
 
 let wWidth = window.innerWidth;
+
+let celebrate = false;
 
 function handleOverTile(event) {
 
@@ -41,7 +45,30 @@ function declareVictory(){
 
   if(won){
 
-    alert("Felicitaciones!");
+    let confettiSettings = { target: 'canvas' };
+    let confetti = new ConfettiGenerator(confettiSettings);
+    celebrate = true;
+    confetti.render();
+/*     let canvas = document.getElementById('text');
+    let ctx = canvas.getContext("2d");
+    ctx.font = "30px Arial";
+    ctx.strokeText("Hello World", 10, 50);
+
+    function fadeOut(text) {
+      let alpha = 0.0,   // clear opacity
+        interval = setInterval(function () {
+            canvas.width = canvas.width; // Clears the canvas
+            ctx.fillStyle = `rgba(100, 100, 100, ${alpha})`;
+            ctx.font = "italic 20pt Arial";
+            ctx.fillText(text, window.innerWidth / 2, window.innerHeight / 2);
+            alpha = alpha + 0.01; // increase opacity (fade in)
+            if (alpha > 1) {
+                clearInterval(interval);
+            }
+        }, 100); 
+    }
+
+    fadeOut("Felicitaciones!"); */
   }
   else{
 
@@ -51,7 +78,32 @@ function declareVictory(){
 
 </script>
 
+<style>
+
+.canvas {
+
+  z-index: 2147483647;
+  display:block;
+  position: absolute;
+  width:100vw; height:100vh;
+  margin:0; padding:0;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+</style>
+
 <svelte:window bind:innerWidth={wWidth}/>
+
+
+<canvas id="canvas" class="canvas {celebrate ? "visible" : "hidden"}" on:click={() => {celebrate = !celebrate;}}></canvas>
+<!--canvas id="text" class="canvas {celebrate ? "visible" : "hidden"}"></canvas-->
 
 <LayoutAdapter {wWidth}>
   <Logos slot="logos"/>

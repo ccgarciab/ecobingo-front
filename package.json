@@ -24,6 +24,7 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "confetti-js": "^0.0.18",
     "firebase": "^8.7.1",
     "sirv-cli": "^1.0.0"
   }
