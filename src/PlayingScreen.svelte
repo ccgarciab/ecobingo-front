@@ -20,8 +20,6 @@ export let roomDocument;
 let hooverBingoCode = "";
 let currentBingoCode = "";
 
-$: marked = $markedStore;
-
 let wWidth = window.innerWidth;
 
 function handleOverTile(event) {
@@ -33,28 +31,22 @@ roomDocument.onSnapshot((snapshot) => {
   const data = snapshot.data();
   if(data?.ballot) {
     currentBingoCode = data.ballot;
-    $codeStore = currentBingoCode;
+    $codeStore.add(currentBingoCode);
   }
 });
 
-/* dataChannel.onmessage = (event) => {
-
-  const message = event.data;
-  if(message === "won"){
-    alert("Ganaste!");
-  }
-  else if(message === "lost"){
-    alert("No has ganado!");
-  }
-  else{
-    currentBingoCode = event.data;
-    $codeStore = currentBingoCode;
-  }
-} */
-
 function declareVictory(){
 
-  //dataChannel.send("won");
+  let won = target.every((required, index) => !required || $markedStore[index]);
+
+  if(won){
+
+    alert("Felicitaciones!");
+  }
+  else{
+
+    alert("Aún no has ganado. Sigue jugando.");
+  }
 }
 
 </script>

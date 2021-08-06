@@ -26,7 +26,7 @@ function stopreport() {
 }
 
 function mark(e){
-  if($codeStore !== code || $markedStore[position]){
+  if(!$codeStore.has(code) || $markedStore[position]){
     return;
   }
   $markedStore[position] = true;
