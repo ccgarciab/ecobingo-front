@@ -1,4 +1,4 @@
-# Ecobingo: vista de administrador
+# Ecobingo: vista de jugador
 
 ### Prerrequisitos:
 
