@@ -18,6 +18,7 @@ export let target;
 export let name;
 export let room;
 export let roomDocument;
+export let userDocument;
 
 let hooverBingoCode = "";
 let currentBingoCode = "";
@@ -49,26 +50,7 @@ function declareVictory(){
     let confetti = new ConfettiGenerator(confettiSettings);
     celebrate = true;
     confetti.render();
-/*     let canvas = document.getElementById('text');
-    let ctx = canvas.getContext("2d");
-    ctx.font = "30px Arial";
-    ctx.strokeText("Hello World", 10, 50);
-
-    function fadeOut(text) {
-      let alpha = 0.0,   // clear opacity
-        interval = setInterval(function () {
-            canvas.width = canvas.width; // Clears the canvas
-            ctx.fillStyle = `rgba(100, 100, 100, ${alpha})`;
-            ctx.font = "italic 20pt Arial";
-            ctx.fillText(text, window.innerWidth / 2, window.innerHeight / 2);
-            alpha = alpha + 0.01; // increase opacity (fade in)
-            if (alpha > 1) {
-                clearInterval(interval);
-            }
-        }, 100); 
-    }
-
-    fadeOut("Felicitaciones!"); */
+    userDocument.set({ won : true });
   }
   else{
 

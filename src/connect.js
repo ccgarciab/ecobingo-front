@@ -37,15 +37,20 @@ async function connect({room, name}){
     }
   });
 
-  userDocument.onSnapshot((snapshot) => {
+  let unsubFromSelf = userDocument.onSnapshot((snapshot) => {
     const data = snapshot.data();
     if(data?.card) {
       cardResolve(JSON.parse(data.card));
+      unsubFromSelf();
     }
   });
 
   return Promise.race([
-    Promise.all([cardPromise, targetPromise, Promise.resolve(roomDocument)]),
+    Promise.all([
+      cardPromise,
+      targetPromise,
+      Promise.resolve(roomDocument),
+      Promise.resolve(userDocument)]),
     new Promise((_, reject) => setTimeout(() => reject, 2 * 60 * 1000))
   ]);
 }

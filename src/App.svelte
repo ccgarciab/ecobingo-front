@@ -15,6 +15,7 @@ let card;
 let target;
 let sessionData;
 let roomDocument;
+let userDocument;
 
 function startLoading(event){
   
@@ -26,7 +27,7 @@ function startLoading(event){
 
 async function loadAssets(textFields){
 
-  [card, target, roomDocument] = await connect(textFields);
+  [card, target, roomDocument, userDocument] = await connect(textFields);
   sessionData = textFields;
   $soundStore = await loadAllAudioFiles(card);
 }
@@ -39,6 +40,6 @@ async function loadAssets(textFields){
   <LoadScreen/>
 {:else}
   <div transition:fade>
-    <PlayingScreen {card} {target} {roomDocument} {...sessionData} />
+    <PlayingScreen {card} {target} {roomDocument} {userDocument} {...sessionData} />
   </div>
 {/if}
